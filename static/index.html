@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AetherMind turns natural-language goals into organized tasks with AI.">
+  <title>AetherMind — AI Task Manager</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="AetherMind home">
+        <span class="brand-mark">✦</span><span>AetherMind</span>
+      </a>
+      <p class="side-label">WORKSPACE</p>
+      <a class="nav-item active" href="#dashboard"><span>▦</span> Dashboard</a>
+      <a class="nav-item" href="#create-task"><span>✧</span> AI task capture</a>
+      <div class="sidebar-note">
+        <div class="sparkle">✦</div>
+        <strong>Make room for what matters.</strong>
+        <p>Turn a thought into a clear next step.</p>
+      </div>
+      <div class="sidebar-footer"><span class="status-dot"></span> Personal workspace</div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">YOUR PERSONAL WORKSPACE</p>
+          <h1 id="greeting">Good morning.</h1>
+          <p class="subheading">Capture your thoughts. Let AI organize the details.</p>
+        </div>
+        <div class="avatar" title="Personal workspace">A</div>
+      </header>
+
+      <section class="hero-card" id="create-task">
+        <div class="hero-copy">
+          <span class="pill"><span class="sparkle-small">✦</span> AI-POWERED TASK CAPTURE</span>
+          <h2>What do you want<br>to get done?</h2>
+          <p>Describe your task naturally. AetherMind will extract the title, deadline and priority for you.</p>
+        </div>
+        <div class="hero-decoration" aria-hidden="true"><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="orbit">✦</div></div>
+        <form id="extract-form" class="capture-form">
+          <label for="task-input">Describe your task</label>
+          <textarea id="task-input" name="text" maxlength="5000" minlength="8" required
+            placeholder="e.g. Finish my machine learning assignment by November 5. It is high priority."></textarea>
+          <div class="form-bottom">
+            <span class="hint">Be as detailed as you like · max 5,000 characters</span>
+            <button class="button button-primary" id="extract-button" type="submit"><span>✦</span> Extract with AI <span>→</span></button>
+          </div>
+        </form>
+      </section>
+
+      <section id="preview-section" class="panel preview-panel hidden" aria-live="polite">
+        <div class="panel-heading">
+          <div><p class="eyebrow">AI EXTRACTION</p><h2>Review before saving</h2></div>
+          <span class="tag tag-review">Needs your confirmation</span>
+        </div>
+        <p class="panel-intro">Check the fields below. Nothing is saved until you confirm.</p>
+        <form id="preview-form">
+          <div class="field-grid">
+            <div class="field full"><label for="preview-title">Task title *</label><input id="preview-title" required minlength="3" maxlength="160"></div>
+            <div class="field full"><label for="preview-description">Description</label><textarea id="preview-description" maxlength="1000" rows="2"></textarea></div>
+            <div class="field"><label for="preview-deadline">Deadline</label><input id="preview-deadline" type="date"></div>
+            <div class="field"><label for="preview-priority">Priority</label><select id="preview-priority"><option>Low</option><option>Medium</option><option>High</option></select></div>
+            <div class="field"><label for="preview-category">Category</label><input id="preview-category" maxlength="60"></div>
+          </div>
+          <div class="preview-actions"><button type="button" class="button button-quiet" id="cancel-preview">Discard</button><button class="button button-primary" id="save-button" type="submit">Confirm &amp; save task →</button></div>
+        </form>
+      </section>
+
+      <section id="dashboard" class="dashboard-section">
+        <div class="section-heading">
+          <div><p class="eyebrow">STAY ON TRACK</p><h2>Your tasks</h2></div>
+          <button class="button button-quiet refresh-button" id="refresh-button" type="button">↻ Refresh</button>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card"><span class="stat-icon lavender">▦</span><span class="stat-label">All tasks</span><strong id="stat-total">0</strong><span class="stat-foot">In your workspace</span></article>
+          <article class="stat-card"><span class="stat-icon peach">◷</span><span class="stat-label">In progress</span><strong id="stat-progress">0</strong><span class="stat-foot">Currently underway</span></article>
+          <article class="stat-card"><span class="stat-icon mint">✓</span><span class="stat-label">Completed</span><strong id="stat-completed">0</strong><span class="stat-foot">Small wins add up</span></article>
+        </div>
+        <div class="task-toolbar">
+          <div><h3>Task list</h3><p class="muted">Your saved tasks, all in one place.</p></div>
+          <label class="filter-label" for="status-filter">Filter <select id="status-filter"><option value="All">All tasks</option><option>Pending</option><option>In Progress</option><option>Completed</option></select></label>
+        </div>
+        <div id="task-list" class="task-list"><div class="loading-state">Loading your workspace…</div></div>
+      </section>
+
+      <footer class="footer"><span>✦ AetherMind</span><span>Small steps. Clear priorities.</span></footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
